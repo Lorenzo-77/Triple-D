@@ -1,0 +1,253 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #090d16;
+  color: #f1f5f9;
+  padding: 12px;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px 18px 4px;
+}
+
+.header h1 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.btn-toggle-upload {
+  background: #1e293b;
+  color: #38bdf8;
+  border: 1px solid #38bdf840;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-toggle-upload:active {
+  transform: scale(0.96);
+  background: #38bdf820;
+}
+
+/* Day Selector */
+.day-selector {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+  position: sticky;
+  top: 8px;
+  z-index: 20;
+  background: #090d16cc;
+  backdrop-filter: blur(8px);
+  padding: 4px 0;
+}
+
+.day-btn {
+  background: #151d30;
+  color: #94a3b8;
+  border: 1px solid #243049;
+  padding: 12px 2px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-align: center;
+}
+
+.day-btn.active {
+  background: #38bdf8;
+  color: #090d16;
+  border-color: #38bdf8;
+  box-shadow: 0 4px 12px #38bdf840;
+  transform: translateY(-1px);
+}
+
+/* Calculadora 1RM */
+.rm-inputs-card {
+  background: #131b2e;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #22304e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.rm-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.rm-header h3 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #2d3d63;
+  background: #0b1120;
+  color: #38bdf8;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-align: center;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #38bdf8;
+}
+
+/* Bloques de Entrenamiento */
+.blocks-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.block-card {
+  background: #131b2e;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #202c46;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores temáticos por bloque */
+.block-header {
+  padding: 9px 14px;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.block-header.core { background: #ca8a04; color: #000; }
+.block-header.oly { background: #dc2626; color: #fff; }
+.block-header.fuerza { background: #2563eb; color: #fff; }
+.block-header.wod { background: #b91c1c; color: #fff; }
+.block-header.skill { background: #ea580c; color: #fff; }
+.block-header.conditioning { background: #059669; color: #fff; }
+
+.block-content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  padding: 6px 0;
+  border-bottom: 1px solid #1c2740;
+}
+
+.exercise-row:last-child {
+  border-bottom: none;
+}
+
+.calculated-tag {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  margin-left: 12px;
+  box-shadow: 0 2px 8px #10b98130;
+}
+
+/* Uploader */
+.uploader-card {
+  background: #131b2e;
+  border: 2px dashed #2d3d63;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 18px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+}
