@@ -1,253 +1,569 @@
-* {
+/* ==========================================================================
+   DESIGN TOKENS — TRIPLE D (PROFESSIONAL ATHLETIC SYSTEM)
+   ========================================================================== */
+:root {
+  /* Paleta cromática: Carbon & Titanium con acento técnico */
+  --bg-app: #0d0f12;
+  --bg-surface: #14171d;
+  --bg-surface-elevated: #1a1e26;
+  --bg-surface-subtle: #222733;
+
+  --border-subtle: #202633;
+  --border-medium: #2a3344;
+  --border-active: #475569;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Acento de entrenamiento: Ámbar Técnico */
+  --color-accent: #f59e0b;
+  --color-accent-soft: rgba(245, 158, 11, 0.12);
+  --color-accent-hover: #d97706;
+
+  /* Estado de cálculo exitoso */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-success-border: rgba(16, 185, 129, 0.28);
+
+  /* Identificadores de bloque atlético (desaturados y legibles) */
+  --tag-core: #eab308;
+  --tag-oly: #ef4444;
+  --tag-fuerza: #3b82f6;
+  --tag-wod: #f97316;
+  --tag-skill: #a855f7;
+  --tag-conditioning: #06b6d4;
+
+  /* Dimensiones y espaciados */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Tipografía fluida y métricas de celda */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   RESET & MOBILE-FIRST GUARD (Anti-Zoom, Anti-Bounce)
+   ========================================================================== */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  background-color: #090d16;
-  color: #f1f5f9;
-  padding: 12px;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   min-height: 100vh;
+  min-height: 100dvh;
+  padding: 12px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Prevención estricta de comportamientos anómalos en móviles */
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
 }
 
+/* Contenedor principal centrado para dispositivos móviles */
 .app-container {
-  max-width: 600px;
+  max-width: 580px;
   margin: 0 auto;
-  padding-bottom: 40px;
 }
 
-/* Header */
+/* ==========================================================================
+   INTERACCIÓN Y ENTRADAS (REGLAS ESTRICTAS CONTRA AUTO-ZOOM)
+   ========================================================================== */
+button,
+a,
+label {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* En iOS, cualquier input con font-size < 16px fuerza zoom de pantalla */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ==========================================================================
+   HEADER / BRAND
+   ========================================================================== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 4px 18px 4px;
+  padding: 8px 2px 16px 2px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 14px;
 }
 
-.header h1 {
-  font-size: 1.45rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  object-fit: contain;
+  background-color: var(--bg-surface);
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
-.btn-toggle-upload {
-  background: #1e293b;
-  color: #38bdf8;
-  border: 1px solid #38bdf840;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.85rem;
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.2s;
+  min-height: 38px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.btn-toggle-upload:active {
-  transform: scale(0.96);
-  background: #38bdf820;
+.btn-secondary:active {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-active);
+  color: var(--text-primary);
 }
 
-/* Day Selector */
+/* ==========================================================================
+   DAY SELECTOR (TAB SYSTEM)
+   ========================================================================== */
 .day-selector {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 6px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   position: sticky;
-  top: 8px;
-  z-index: 20;
-  background: #090d16cc;
-  backdrop-filter: blur(8px);
-  padding: 4px 0;
+  top: max(8px, env(safe-area-inset-top));
+  z-index: 30;
+  background: rgba(13, 15, 18, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 6px 0;
 }
 
 .day-btn {
-  background: #151d30;
-  color: #94a3b8;
-  border: 1px solid #243049;
-  padding: 12px 2px;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 0.8rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 10px 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.15s ease-in-out;
   text-align: center;
+  min-height: 42px;
+  transition: all 0.12s ease;
+}
+
+.day-btn:active {
+  transform: translateY(1px);
 }
 
 .day-btn.active {
-  background: #38bdf8;
-  color: #090d16;
-  border-color: #38bdf8;
-  box-shadow: 0 4px 12px #38bdf840;
-  transform: translateY(-1px);
+  background: var(--color-accent);
+  color: #000000;
+  border-color: var(--color-accent);
+  font-weight: 800;
 }
 
-/* Calculadora 1RM */
-.rm-inputs-card {
-  background: #131b2e;
+/* ==========================================================================
+   CALCULADORA DE 1RM (PANEL DE CONTROL)
+   ========================================================================== */
+.rm-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   padding: 14px;
-  border-radius: 12px;
-  margin-bottom: 18px;
-  border: 1px solid #22304e;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-.rm-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.rm-header h3 {
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #38bdf8;
-  text-transform: uppercase;
-}
-
-.inputs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 10px;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.input-group label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #94a3b8;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-}
-
-.input-group input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #2d3d63;
-  background: #0b1120;
-  color: #38bdf8;
-  font-size: 1.05rem;
-  font-weight: 800;
-  text-align: center;
-  outline: none;
-}
-
-.input-group input:focus {
-  border-color: #38bdf8;
-}
-
-/* Bloques de Entrenamiento */
-.blocks-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.block-card {
-  background: #131b2e;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #202c46;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Colores temáticos por bloque */
-.block-header {
-  padding: 9px 14px;
-  font-weight: 900;
-  font-size: 0.85rem;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  background: #1e293b;
-  color: #f8fafc;
-}
-
-.block-header.core { background: #ca8a04; color: #000; }
-.block-header.oly { background: #dc2626; color: #fff; }
-.block-header.fuerza { background: #2563eb; color: #fff; }
-.block-header.wod { background: #b91c1c; color: #fff; }
-.block-header.skill { background: #ea580c; color: #fff; }
-.block-header.conditioning { background: #059669; color: #fff; }
-
-.block-content {
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.exercise-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.88rem;
-  line-height: 1.35;
-  padding: 6px 0;
-  border-bottom: 1px solid #1c2740;
-}
-
-.exercise-row:last-child {
-  border-bottom: none;
-}
-
-.calculated-tag {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  margin-left: 12px;
-  box-shadow: 0 2px 8px #10b98130;
-}
-
-/* Uploader */
-.uploader-card {
-  background: #131b2e;
-  border: 2px dashed #2d3d63;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
   margin-bottom: 16px;
 }
 
-.file-input-label {
-  display: inline-block;
-  padding: 10px 18px;
-  background: #2563eb;
-  color: #fff;
-  border-radius: 8px;
+.rm-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.rm-header-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.btn-clear {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
   cursor: pointer;
-  font-size: 0.85rem;
+  padding: 4px 6px;
+}
+
+.btn-clear:active {
+  color: var(--text-primary);
+}
+
+.rm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.rm-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rm-input-box label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rm-input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rm-input-field input {
+  width: 100%;
+  padding: 8px 30px 8px 10px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rm-input-field input:focus {
+  border-color: var(--color-accent);
+}
+
+.rm-unit {
+  position: absolute;
+  right: 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CARDS DE ENTRENAMIENTO (BLOQUES)
+   ========================================================================== */
+.blocks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.block-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.block-card-header {
+  padding: 10px 14px;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.block-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.block-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.block-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+/* Colores de bala por tipo de bloque */
+.block-bullet.core { background: var(--tag-core); }
+.block-bullet.oly { background: var(--tag-oly); }
+.block-bullet.fuerza { background: var(--tag-fuerza); }
+.block-bullet.wod { background: var(--tag-wod); }
+.block-bullet.skill { background: var(--tag-skill); }
+.block-bullet.conditioning { background: var(--tag-conditioning); }
+
+.block-items-count {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
   font-weight: 700;
 }
 
-.btn-primary {
-  background: #10b981;
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+.block-card-body {
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.workout-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.workout-row:last-child {
+  border-bottom: none;
+}
+
+.workout-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.workout-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.workout-percent {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.calculated-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success);
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.calculated-value {
+  font-size: 0.92rem;
   font-weight: 800;
-  font-size: 0.9rem;
-  width: 100%;
+}
+
+.calculated-unit {
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   ESTADOS VACÍOS Y CARGAS
+   ========================================================================== */
+.empty-routine-view {
+  text-align: center;
+  padding: 48px 16px;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-feedback {
+  text-align: center;
+  margin: 32px 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PANEL UPLOADER
+   ========================================================================== */
+.upload-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  border: 1px dashed var(--border-active);
+  border-radius: var(--radius-sm);
+  background: var(--bg-app);
   cursor: pointer;
-  margin-top: 10px;
+  text-align: center;
+}
+
+.upload-dropzone input[type="file"] {
+  display: none;
+}
+
+.upload-prompt-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.upload-help-text {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-thumbnail {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-medium);
+  object-fit: cover;
+}
+
+.preview-actions {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--color-accent);
+  color: #000000;
+  border: none;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:active {
+  background: var(--color-accent-hover);
+}
+
+.loader-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.loader-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-medium);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
